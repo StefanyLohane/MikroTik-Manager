@@ -1,56 +1,323 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Login - MikroTik Manager</title>
+    <title>Conectar | MikroTik Manager</title>
 
     <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            padding: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            color: #243044;
+            background: #eef2f7;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 490px;
+            padding: 28px;
+            background: #fff;
+            border: 1px solid #dce3eb;
+            border-radius: 14px;
+            box-shadow: 0 8px 28px #172b4d12;
+        }
+
+        .login-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 26px;
+        }
+
+        .logo {
+            width: 58px;
+            height: 58px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        h1 {
+            margin: 0 0 6px;
+            font-size: 23px;
+        }
+
+        .subtitulo {
+            margin: 0;
+            color: #687386;
+            font-size: 14px;
+        }
+
+        .secao-titulo {
+            margin: 0 0 12px;
+            font-size: 15px;
+        }
+
+        .dispositivo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            border: 1px solid #2563eb;
+            border-radius: 10px;
+            background: #eff6ff;
+            cursor: pointer;
+        }
+
+        .dispositivo input {
+            accent-color: #2563eb;
+        }
+
+        .icone {
+            font-size: 27px;
+        }
+
+        .dados-dispositivo {
+            flex: 1;
+        }
+
+        .nome-dispositivo {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .detalhes {
+            color: #687386;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .estado {
+            color: #2563eb;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .aviso {
+            margin: 12px 0 24px;
+            color: #687386;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .campo {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .campo input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccd3dd;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .campo input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px #2563eb20;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            border: 0;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
+        #mensagem {
+            margin-top: 15px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .rodape {
+            margin-top: 22px;
+            color: #8791a0;
+            font-size: 12px;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
-
-    <div class="login-card">
-
-        <div class="login-header">
-            <h1>Autenticação</h1>
-            <img 
-                src="img/logo.jpeg" 
-                alt="Logo MikroTik Manager" 
+    <main class="login-card">
+        <header class="login-header">
+            <img
+                src="img/logo.jpeg"
+                alt="Logo MikroTik Manager"
                 class="logo"
             >
-        </div>
 
-        <form action="painel.html">
+            <div>
+                <h1>Conectar ao dispositivo</h1>
+                <p class="subtitulo">
+                    Gerenciamento de rede MikroTik
+                </p>
+            </div>
+        </header>
+
+        <section>
+            <h2 class="secao-titulo">Dispositivos disponíveis</h2>
+
+            <label class="dispositivo" for="mikrotik">
+                <input
+                    type="radio"
+                    id="mikrotik"
+                    name="dispositivo"
+                    value="192.168.56.2"
+                    checked
+                >
+
+                <span class="icone" aria-hidden="true">🌐</span>
+
+                <span class="dados-dispositivo">
+                    <span class="nome-dispositivo">MikroTik</span>
+                    <span class="detalhes">
+                        Endereço: 192.168.56.2<br>
+                        Porta API: 8728
+                    </span>
+                </span>
+
+                <span class="estado">Configurado</span>
+            </label>
+
+            <p class="aviso">
+                Dispositivo configurado no projeto.
+                A disponibilidade real será confirmada ao conectar.
+            </p>
+        </section>
+
+        <form id="formLogin" autocomplete="off">
+            <h2 class="secao-titulo">Autenticação</h2>
 
             <div class="campo">
-                <input 
+                <label for="usuario">Usuário do MikroTik</label>
+                <input
                     type="text"
                     id="usuario"
                     name="usuario"
                     placeholder="Digite seu usuário"
+                    autocomplete="off"
+                    autocapitalize="none"
+                    spellcheck="false"
+                    required
                 >
             </div>
 
             <div class="campo">
-                <input 
+                <label for="senha">Senha</label>
+                <input
                     type="password"
                     id="senha"
                     name="senha"
                     placeholder="Digite sua senha"
+                    autocomplete="off"
+                    required
                 >
             </div>
 
-            <button type="submit">
-                Entrar
+            <button type="submit" id="botaoConectar">
+                Conectar ao dispositivo
             </button>
 
-
+            <div
+                id="mensagem"
+                role="status"
+                aria-live="polite"
+            ></div>
         </form>
 
-    </div>
+        <footer class="rodape">
+            MikroTik Manager · Gerenciamento de rede
+        </footer>
+    </main>
 
+    <script>
+        document.getElementById("formLogin")
+            .addEventListener("submit", async function (evento) {
+                evento.preventDefault();
+
+                const mensagem = document.getElementById("mensagem");
+                const botao = document.getElementById("botaoConectar");
+
+                const dispositivo = document.querySelector(
+                    'input[name="dispositivo"]:checked'
+                );
+
+                botao.disabled = true;
+                mensagem.style.color = "#2563eb";
+                mensagem.textContent = "Conectando ao MikroTik...";
+
+                try {
+                    const resposta = await fetch("/api/auth/login", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            endereco: dispositivo.value,
+                            usuario: document.getElementById("usuario").value,
+                            senha: document.getElementById("senha").value
+                        })
+                    });
+
+                    const dados = await resposta.json();
+
+                    if (!resposta.ok) {
+                        throw new Error(
+                            dados.erro || "Não foi possível conectar."
+                        );
+                    }
+
+                    mensagem.style.color = "#2563eb";
+                    mensagem.textContent =
+                        "Conexão realizada! Abrindo painel...";
+
+                    window.location.href = "/painel.html";
+
+                } catch (erro) {
+                    mensagem.style.color = "#b42318";
+                    mensagem.textContent = erro.message;
+
+                } finally {
+                    botao.disabled = false;
+                }
+            });
+    </script>
 </body>
 </html>

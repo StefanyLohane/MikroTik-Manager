@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,117 +7,173 @@
     <title>Monitoramento - MikroTik Manager</title>
 
     <link rel="stylesheet" href="css/painel.css">
+
+    <style>
+        .cabecalho {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .botao-sair {
+            width: 44px;
+            height: 44px;
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #111111;
+            color: #ffffff;
+            border: none;
+            border-radius: 9px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .botao-sair:hover {
+            background: #333333;
+            transform: translateY(-1px);
+        }
+
+        .botao-sair:focus-visible {
+            outline: 3px solid #168f88;
+            outline-offset: 3px;
+        }
+
+        .botao-sair:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+    </style>
 </head>
-<script src="js/painel.js"></script>
+
 <body>
-
     <header class="cabecalho">
-
         <div class="marca">
-            <img 
+            <img
                 src="img/logo.jpeg"
                 alt="Logo MikroTik Manager"
                 class="logo"
             >
         </div>
 
+        <button
+            type="button"
+            id="botaoSair"
+            class="botao-sair"
+            aria-label="Sair do sistema"
+            title="Sair do sistema"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+            >
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                <polyline points="16 17 21 12 16 7"/>
+                <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+        </button>
     </header>
 
-
     <main class="conteudo">
-
         <section class="titulo">
-
             <h2>Monitoramento</h2>
-
-            <p>
-                Visão geral da rede em tempo real
-            </p>
-
+            <p>Visão geral da rede em tempo real</p>
         </section>
-
 
         <section class="resumo">
-
             <div class="card-status">
-                <span class="card-titulo">Hotspot</span>
-
-                <!-- Futuramente o backend colocará o status aqui -->
-                <strong>Ativo</strong>
+                <span class="card-titulo">MikroTik</span>
+                <strong id="status-mikrotik">Consultando...</strong>
             </div>
 
-
             <div class="card-status">
-                <span class="card-titulo">Usuários</span>
-
-                <!-- Futuramente virá do MikroTik -->
-                <strong>12</strong>
+                <span class="card-titulo">Usuários cadastrados</span>
+                <strong id="total-usuarios">Consultando...</strong>
             </div>
 
-
             <div class="card-status">
-                <span class="card-titulo">Internet</span>
-
-                <!-- Futuramente virá do MikroTik -->
-                <strong>Conectada</strong>
+                <span class="card-titulo">Sessões</span>
+                <strong>Hotspot</strong>
             </div>
-
         </section>
 
-
         <section class="usuarios">
+            <div class="usuarios-cabecalho">
+                <div>
+                    <h3>Usuários cadastrados</h3>
+                    <p>Contas registradas no MikroTik</p>
+                </div>
 
-    <div class="usuarios-cabecalho">
+                <a
+                    href="cadastroUsuario.html"
+                    class="botao-cadastrar"
+                >
+                    + Cadastrar usuário
+                </a>
+            </div>
 
-        <div>
-            <h3>Usuários conectados</h3>
+            <div class="tabela" id="tabela-usuarios">
+                <div class="linha tabela-cabecalho">
+                    <span>Usuário</span>
+                    <span>Endereço IP</span>
+                    <span>Status</span>
+                    <span>Ações</span>
+                </div>
 
-            <p>
-                Dispositivos atualmente conectados ao Hotspot
-            </p>
-        </div>
-
-        <a href="cadastroUsuario.html" class="botao-cadastrar">
-            + Cadastrar usuário
-        </a>
-
-    </div>
-
-
-    <div class="tabela">
-
-        <div class="linha tabela-cabecalho">
-            <span>Usuário</span>
-            <span>Endereço IP</span>
-            <span>Status</span>
-        </div>
-
-
-        <div class="linha">
-            <span>maria01</span>
-            <span>192.168.1.10</span>
-            <span class="online">Online</span>
-        </div>
-
-
-        <div class="linha">
-            <span>joao02</span>
-            <span>192.168.1.11</span>
-            <span class="online">Online</span>
-        </div>
-
-
-        <div class="linha">
-            <span>ana03</span>
-            <span>192.168.1.15</span>
-            <span class="online">Online</span>
-        </div>
-
-    </div>
-
-</section>
-
+                <div class="linha">
+                    <span>Carregando...</span>
+                    <span>—</span>
+                    <span>—</span>
+                    <span>—</span>
+                </div>
+            </div>
+        </section>
     </main>
 
+    <script src="js/painel.js"></script>
+
+    <script>
+        document.getElementById("botaoSair")
+            .addEventListener("click", async function () {
+                const confirmar = confirm(
+                    "Deseja sair do MikroTik Manager?"
+                );
+
+                if (!confirmar) {
+                    return;
+                }
+
+                const botao = this;
+                botao.disabled = true;
+
+                try {
+                    const resposta = await fetch("/api/auth/logout", {
+                         method: "POST",
+                        credentials: "same-origin"
+                    });
+
+                    if (!resposta.ok) {
+                        throw new Error(
+                            "Não foi possível encerrar a sessão."
+                        );
+                    }
+
+                    window.location.replace("/inde.html");
+
+                } catch (erro) {
+                    alert(erro.message);
+                    botao.disabled = false;
+                }
+            });
+    </script>
 </body>
 </html>

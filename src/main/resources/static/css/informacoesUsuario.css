@@ -1,0 +1,256 @@
+/* ÁREA DE INFORMAÇÕES */
+
+.detalhes-usuario {
+    background-color: #ffffff;
+    border: 1px solid #e8eef5;
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 18px rgba(38, 80, 120, 0.06);
+}
+
+/* CABEÇALHO DO USUÁRIO */
+
+.detalhes-cabecalho {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #edf1f5;
+    margin-bottom: 25px;
+}
+
+.icone-usuario {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background-color: #eaf5fd;
+    color: #2980b9;
+    border-radius: 14px;
+    font-size: 30px;
+}
+
+.detalhes-cabecalho h3 {
+    font-size: 21px;
+    color: #26384a;
+    overflow-wrap: anywhere;
+}
+
+.detalhes-cabecalho p {
+    margin-top: 6px;
+    color: #8997a5;
+    font-size: 14px;
+}
+
+/* QUATRO INFORMAÇÕES */
+
+.grade-informacoes {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.informacao-card {
+    min-width: 0;
+    min-height: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+    padding: 20px;
+    background-color: #f7faff;
+    border: 1px solid #e8eef5;
+    border-radius: 12px;
+}
+
+.informacao-titulo {
+    font-size: 13px;
+    color: #7a8a99;
+}
+
+.informacao-card strong {
+    font-size: 17px;
+    font-weight: 600;
+    color: #2f80c9;
+    overflow-wrap: anywhere;
+}
+
+/* ÁREA DE AÇÕES */
+
+.acoes-usuario {
+    background-color: #ffffff;
+    border: 1px solid #e8eef5;
+    border-radius: 14px;
+    padding: 28px;
+    box-shadow: 0 5px 18px rgba(38, 80, 120, 0.06);
+}
+
+.acoes-titulo {
+    margin-bottom: 20px;
+}
+
+.acoes-titulo h3 {
+    font-size: 19px;
+    font-weight: 600;
+    color: #26384a;
+}
+
+.acoes-titulo p {
+    margin-top: 6px;
+    font-size: 14px;
+    color: #8997a5;
+}
+
+/* BOTÕES DE AÇÃO */
+
+.acao-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 18px;
+    margin-top: 12px;
+    text-align: left;
+    background-color: #ffffff;
+    border: 1px solid #e8eef5;
+    border-radius: 12px;
+    color: #26384a;
+    font-family: inherit;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.acao-item:not(:disabled):hover {
+    background-color: #f7faff;
+    border-color: #b8d9f2;
+}
+
+.acao-item:disabled {
+    cursor: not-allowed;
+    opacity: 0.75;
+}
+
+.acao-icone {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background-color: #eaf5fd;
+    color: #2980b9;
+    border-radius: 10px;
+    font-size: 25px;
+}
+
+.acao-texto {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.acao-texto strong {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.acao-texto small {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #8997a5;
+}
+
+.acao-seta {
+    color: #8997a5;
+    font-size: 27px;
+}
+
+/* MENSAGEM DAS AÇÕES */
+
+.mensagem-acoes {
+    margin-top: 18px;
+    padding: 12px 14px;
+    background-color: #f7faff;
+    border-radius: 8px;
+    color: #647789;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* VOLTAR AO PAINEL */
+
+.rodape-acoes {
+    margin-top: 25px;
+}
+
+.botao-voltar {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #2f80c9;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.botao-voltar:hover {
+    color: #2468a8;
+}
+
+/* TELAS MENORES */
+
+@media (max-width: 700px) {
+    .detalhes-usuario,
+    .acoes-usuario {
+        padding: 20px;
+    }
+
+    .grade-informacoes {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .informacao-card {
+        min-height: 100px;
+        padding: 14px;
+    }
+
+    .informacao-card strong {
+        font-size: 15px;
+    }
+
+    .detalhes-cabecalho h3 {
+        font-size: 18px;
+    }
+
+    .acao-item {
+        gap: 10px;
+        padding: 14px 10px;
+    }
+
+    .acao-icone {
+        width: 38px;
+        height: 38px;
+    }
+
+    .acao-texto strong {
+        font-size: 14px;
+    }
+
+    .acao-texto small {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 380px) {
+    .grade-informacoes {
+        grid-template-columns: 1fr;
+    }
+}

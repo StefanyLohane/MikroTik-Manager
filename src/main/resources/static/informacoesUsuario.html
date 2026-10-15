@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Informações do usuário - MikroTik Manager</title>
+
+    <link rel="stylesheet" href="css/painel.css">
+    <link rel="stylesheet" href="css/informacoesUsuario.css">
+</head>
+
+<body>
+
+    <header class="cabecalho">
+        <div class="marca">
+            <img
+                src="img/logo.jpeg"
+                alt="Logo MikroTik Manager"
+                class="logo"
+            >
+        </div>
+    </header>
+
+    <main class="conteudo">
+
+        <section class="titulo">
+            <h2>Informações do usuário</h2>
+            <p>Consulte a situação e gerencie o acesso à rede.</p>
+        </section>
+
+        <section class="detalhes-usuario">
+
+            <div class="detalhes-cabecalho">
+                <div class="icone-usuario">
+                    <span>ⓘ</span>
+                </div>
+
+                <div>
+                    <h3 id="nomeUsuario">Carregando...</h3>
+                    <p>Detalhes do cadastro e da conexão</p>
+                </div>
+            </div>
+
+            <div class="grade-informacoes">
+
+                <div class="informacao-card">
+                    <span class="informacao-titulo">Status</span>
+                    <strong id="statusUsuario">Consultando...</strong>
+                </div>
+
+                <div class="informacao-card">
+                    <span class="informacao-titulo">Endereço IP</span>
+                    <strong id="ipUsuario">Consultando...</strong>
+                </div>
+
+                <div class="informacao-card">
+                    <span class="informacao-titulo">Tempo conectado</span>
+                    <strong id="tempoUsuario">Consultando...</strong>
+                </div>
+
+                <div class="informacao-card">
+                    <span class="informacao-titulo">Acesso</span>
+                    <strong id="acessoUsuario">Consultando...</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="acoes-usuario">
+
+            <div class="acoes-titulo">
+                <h3>Gerenciar usuário</h3>
+                <p>Escolha uma ação para este usuário.</p>
+            </div>
+
+            <button
+                type="button"
+                id="botaoBloquear"
+                class="acao-item"
+                disabled
+            >
+                <span class="acao-icone">⊘</span>
+
+                <span class="acao-texto">
+                    <strong id="textoBloquear">
+                        Bloquear dispositivo
+                    </strong>
+                    <small>
+                        Controlar o acesso deste usuário à rede.
+                    </small>
+                </span>
+
+                <span class="acao-seta">›</span>
+            </button>
+
+            <button
+                type="button"
+                id="botaoVelocidade"
+                class="acao-item"
+            >
+                <span class="acao-icone">↗</span>
+
+                <span class="acao-texto">
+                    <strong>Velocidade e tráfego</strong>
+                    <small>
+                        Consultar a velocidade e o tráfego da rede.
+                    </small>
+                </span>
+
+                <span class="acao-seta">›</span>
+            </button>
+
+            <p id="mensagemAcoes" class="mensagem-acoes">
+                Carregando informações do usuário...
+            </p>
+
+        </section>
+
+        <div class="rodape-acoes">
+            <a href="painel.html" class="botao-voltar">
+                ← Voltar ao painel
+            </a>
+        </div>
+
+    </main>
+
+    <script src="js/informacoesUsuario.js"></script>
+
+    <script>
+        document.getElementById("botaoVelocidade")
+            .addEventListener("click", function () {
+
+                const parametros = new URLSearchParams(
+                    window.location.search
+                );
+
+                const usuario = parametros.get("usuario");
+
+                if (!usuario) {
+                    alert("Não foi possível identificar o usuário.");
+                    return;
+                }
+
+                window.location.href =
+                    "velocidadeTrafego.html?usuario="
+                    + encodeURIComponent(usuario);
+            });
+    </script>
+
+</body>
+</html>

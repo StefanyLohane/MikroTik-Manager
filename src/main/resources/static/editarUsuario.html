@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar usuário | MikroTik Manager</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 24px;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #243044;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 40px auto;
+            padding: 28px;
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 4px 18px #00000012;
+        }
+
+        h1 {
+            margin-top: 0;
+            font-size: 24px;
+        }
+
+        p {
+            color: #687386;
+            line-height: 1.5;
+        }
+
+        label {
+            display: block;
+            margin: 18px 0 7px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccd3dd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        button, .voltar {
+            display: inline-block;
+            padding: 12px 16px;
+            border: 0;
+            border-radius: 8px;
+            font-size: 15px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        button {
+            margin-top: 22px;
+            background: #168f88;
+            color: white;
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
+        .voltar {
+            margin-top: 22px;
+            background: #e8edf3;
+            color: #243044;
+        }
+
+        #mensagem {
+            margin-top: 16px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <main class="container">
+        <h1>Editar usuário</h1>
+        <p>Altere o nome do usuário ou informe uma nova senha.</p>
+
+        <form id="form-editar">
+            <label for="nomeAtual">Nome atual</label>
+            <input id="nomeAtual" type="text" readonly>
+
+            <label for="novoNome">Novo nome</label>
+            <input id="novoNome" type="text" required maxlength="100">
+
+            <label for="novaSenha">Nova senha</label>
+            <input
+                id="novaSenha"
+                type="password"
+                autocomplete="new-password"
+                placeholder="Deixe em branco para manter a senha atual"
+            >
+
+            <button id="botaoSalvar" type="submit">Salvar alterações</button>
+            <a class="voltar" href="painel.html">Voltar</a>
+
+            <div id="mensagem" role="status" aria-live="polite"></div>
+        </form>
+    </main>
+
+    <script>
+        const parametros = new URLSearchParams(window.location.search);
+        const usuarioOriginal = parametros.get("usuario");
+
+        const campoNomeAtual = document.getElementById("nomeAtual");
+        const campoNovoNome = document.getElementById("novoNome");
+        const campoNovaSenha = document.getElementById("novaSenha");
+        const formulario = document.getElementById("form-editar");
+        const botaoSalvar = document.getElementById("botaoSalvar");
+        const mensagem = document.getElementById("mensagem");
+
+        if (!usuarioOriginal) {
+            mensagem.textContent = "Erro: nenhum usuário foi informado.";
+            mensagem.style.color = "#c62828";
+            botaoSalvar.disabled = true;
+        } else {
+            campoNomeAtual.value = usuarioOriginal;
+            campoNovoNome.value = usuarioOriginal;
+        }
+
+        formulario.addEventListener("submit", async (evento) => {
+            evento.preventDefault();
+
+            const novoNome = campoNovoNome.value.trim();
+            const novaSenha = campoNovaSenha.value;
+
+            if (!novoNome) {
+                mensagem.textContent = "Informe o novo nome do usuário.";
+                mensagem.style.color = "#c62828";
+                return;
+            }
+
+            botaoSalvar.disabled = true;
+            mensagem.textContent = "Salvando alterações...";
+            mensagem.style.color = "#687386";
+
+            try {
+                const resposta = await fetch(
+                    "/api/hotspot/usuarios/" +
+                    encodeURIComponent(usuarioOriginal),
+                    {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            novoNome: novoNome,
+                            novaSenha: novaSenha
+                        })
+                    }
+                );
+
+                const texto = await resposta.text();
+
+                if (!resposta.ok) {
+                    throw new Error(texto || "Não foi possível editar o usuário.");
+                }
+
+                mensagem.textContent =
+                    texto || "Usuário atualizado com sucesso!";
+                mensagem.style.color = "#16804a";
+                campoNovaSenha.value = "";
+
+                setTimeout(() => {
+                    window.location.href = "painel.html";
+                }, 1200);
+            } catch (erro) {
+                mensagem.textContent =
+                    "Erro ao salvar: " + erro.message;
+                mensagem.style.color = "#c62828";
+            } finally {
+                botaoSalvar.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

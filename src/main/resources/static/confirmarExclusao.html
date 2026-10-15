@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Confirmar exclusão - MikroTik Manager</title>
+
+    <link rel="stylesheet" href="css/painel.css">
+</head>
+
+<body>
+
+    <header class="cabecalho">
+        <div class="marca">
+            <img
+                src="img/logo.jpeg"
+                alt="Logo MikroTik Manager"
+                class="logo"
+            >
+        </div>
+    </header>
+
+    <main class="conteudo">
+
+        <section class="formulario-cadastro">
+
+            <h2>Excluir usuário</h2>
+
+            <p style="margin-top: 15px; line-height: 1.6;">
+                Tem certeza de que deseja excluir o usuário
+                <strong id="nomeUsuario">carregando...</strong>?
+            </p>
+
+            <p style="margin-top: 10px; color: #8997a5; font-size: 14px;">
+                Essa ação removerá o cadastro do usuário no MikroTik.
+            </p>
+
+            <p
+                id="mensagem"
+                role="status"
+                style="margin-top: 15px;"
+            ></p>
+
+            <div class="acoes-cadastro">
+
+                <a href="painel.html" class="voltar">
+                    Cancelar
+                </a>
+
+                <button
+                    type="button"
+                    id="botaoConfirmar"
+                    class="botao-excluir"
+                    style="width: auto; padding: 10px 16px;"
+                >
+                    Confirmar exclusão
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="js/confirmarExclusao.js"></script>
+
+</body>
+</html>

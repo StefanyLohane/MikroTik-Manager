@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Velocidade e tráfego - MikroTik Manager</title>
+
+    <link rel="stylesheet" href="css/painel.css">
+    <link rel="stylesheet" href="css/velocidadeTrafego.css">
+</head>
+
+<body>
+
+    <header class="cabecalho">
+        <div class="marca">
+            <img
+                src="img/logo.jpeg"
+                alt="Logo MikroTik Manager"
+                class="logo"
+            >
+        </div>
+    </header>
+
+    <main class="conteudo">
+
+        <section class="titulo">
+            <h2>Velocidade e tráfego</h2>
+            <p>Acompanhe a velocidade da conexão e o tráfego da rede.</p>
+        </section>
+
+        <!-- BLOCO 1: VELOCIDADE GERAL DA CONEXÃO -->
+
+        <section class="painel-velocidade">
+
+            <div class="cabecalho-secao">
+                <div>
+                    <h3>Velocidade da conexão</h3>
+                    <p>
+                        Interface monitorada:
+                        <strong>ether2</strong>
+                    </p>
+                </div>
+
+                <span class="indicador-status" id="statusConexao">
+                    Aguardando dados
+                </span>
+            </div>
+
+            <div class="grade-metricas">
+
+                <article class="metrica-card">
+                    <div class="metrica-icone download">↓</div>
+                    <span class="metrica-titulo">Download</span>
+                    <strong id="velocidadeDownload">—</strong>
+                    <small>Taxa de recebimento</small>
+                </article>
+
+                <article class="metrica-card">
+                    <div class="metrica-icone upload">↑</div>
+                    <span class="metrica-titulo">Upload</span>
+                    <strong id="velocidadeUpload">—</strong>
+                    <small>Taxa de envio</small>
+                </article>
+
+            </div>
+
+            <p class="observacao">
+                Mostra a velocidade geral observada na interface ether2,
+                que pode incluir o tráfego de vários dispositivos.
+            </p>
+
+        </section>
+
+        <!-- BLOCO 2: TRÁFEGO DA REDE -->
+
+        <section class="painel-velocidade">
+
+            <div class="cabecalho-secao">
+                <div>
+                    <h3>Tráfego da rede</h3>
+                    <p>
+                        Volume de dados transferidos pela interface ether2.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grade-metricas">
+
+                <article class="metrica-card">
+                    <div class="metrica-icone download">↓</div>
+                    <span class="metrica-titulo">Entrada</span>
+                    <strong id="trafegoEntrada">—</strong>
+                    <small>Total de dados recebidos</small>
+                </article>
+
+                <article class="metrica-card">
+                    <div class="metrica-icone upload">↑</div>
+                    <span class="metrica-titulo">Saída</span>
+                    <strong id="trafegoSaida">—</strong>
+                    <small>Total de dados enviados</small>
+                </article>
+
+            </div>
+
+            <p class="observacao">
+                Os contadores representam o volume acumulado na interface
+                e podem ser reiniciados quando o equipamento é reiniciado
+                ou os contadores são zerados.
+            </p>
+
+        </section>
+
+        <div class="rodape-acoes">
+            <a
+                href="painel.html"
+                id="botaoVoltar"
+                class="botao-voltar"
+            >
+                ← Voltar ao painel
+            </a>
+        </div>
+
+    </main>
+
+    <script src="js/velocidadeTrafego.js"></script>
+
+</body>
+
+</html>
